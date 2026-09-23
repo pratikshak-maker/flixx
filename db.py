@@ -52,6 +52,12 @@ def _rest(method: str, path: str, params: dict | None = None, json_body=None):
     url = f"{config.SUPABASE_URL}/rest/v1/{path}"
     resp = requests.request(method, url, headers=_headers(), params=params, json=json_body, timeout=15)
     if resp.status_code >= 400:
+        # A malformed id (e.g. a stale/guessed link that isn't even a valid
+        # UUID) can never match a row, so treat Postgres's "invalid input
+        # syntax" (22P02) on a read as "not found" rather than a hard error —
+        # only for GET, so a genuinely bad write still surfaces as an error.
+        if method == "GET" and '"code":"22P02"' in resp.text:
+            return []
         raise SupabaseError(f"{method} {path} -> {resp.status_code}: {resp.text}")
     if not resp.text:
         return []
