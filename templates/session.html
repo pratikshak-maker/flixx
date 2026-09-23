@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="page page-session" data-session-id="{{ session_id }}">
+  <div class="wrap">
+
+    <header class="topbar">
+      <div class="brand brand-sm">
+        <span class="brand-mark">🎬</span>
+        <span class="brand-name">Tonight</span>
+      </div>
+      <span id="round-pill" class="pill hidden"></span>
+    </header>
+
+    <section id="screen-loading" class="screen center-screen">
+      <div class="spinner"></div>
+    </section>
+
+    <section id="screen-form" class="screen card form-card hidden">
+      <h2 id="form-heading">What are you in the mood for?</h2>
+      <p class="muted">Answer for yourself — your partner won't see this until you both finish.</p>
+      <div id="form-mount"></div>
+    </section>
+
+    <section id="screen-share" class="screen card hidden">
+      <h2>Bring your partner in</h2>
+      <p class="muted">Have them scan this, or send the link — they'll answer the same questions on their own.</p>
+      <div class="qr-wrap">
+        <img id="qr-image" alt="QR code to join this session" width="220" height="220">
+      </div>
+      <div class="link-row">
+        <input id="share-link-input" type="text" readonly>
+        <button id="copy-link-btn" class="btn btn-secondary btn-sm">Copy</button>
+      </div>
+      <button id="share-image-btn" class="btn btn-primary">Share QR to a messaging app</button>
+      <div class="couple-code-box">
+        <span class="muted">Your couple code (save it for next time)</span>
+        <strong id="couple-code-text">——</strong>
+      </div>
+      <div class="waiting-row">
+        <div class="spinner spinner-sm"></div>
+        <span>Waiting for your partner to join and set their mood…</span>
+      </div>
+    </section>
+
+    <section id="screen-generating" class="screen center-screen hidden">
+      <div class="spinner"></div>
+      <p id="generating-text">Finding titles you'll both like…</p>
+    </section>
+
+    <section id="screen-waiting-swipes" class="screen center-screen hidden">
+      <div class="spinner"></div>
+      <p>Waiting for your partner to finish swiping…</p>
+      <p class="muted small">You swiped through all <span id="waiting-total-count">30</span>.</p>
+    </section>
+
+    <section id="screen-swipe" class="screen screen-swipe hidden">
+      <p id="swipe-round-caption" class="muted center-text"></p>
+      <div id="deck" class="deck"></div>
+      <div class="swipe-controls">
+        <button id="pass-btn" class="round-btn round-btn-pass" aria-label="Pass">✕</button>
+        <button id="like-btn" class="round-btn round-btn-like" aria-label="Like">♥</button>
+      </div>
+      <p class="muted small center-text"><span id="deck-remaining">30</span> left</p>
+    </section>
+
+    <section id="screen-match" class="screen center-screen hidden">
+      <div class="match-burst">🎉</div>
+      <h2>You both said yes.</h2>
+      <div class="match-card" id="match-card"></div>
+      <div id="match-platforms" class="platform-row"></div>
+      <button id="rate-btn" class="btn btn-secondary">Add a rating after you watch</button>
+    </section>
+
+    <section id="screen-top5" class="screen hidden">
+      <h2>No overlap yet — you two decide</h2>
+      <p class="muted">Two rounds down, still no shared match. Here's what got the most love between you — pick one together.</p>
+      <div id="top5-grid" class="top5-grid"></div>
+    </section>
+
+    <section id="screen-rate" class="screen center-screen hidden">
+      <h2>How was it?</h2>
+      <div id="rate-stars" class="rate-stars">
+        <button data-star="1">★</button><button data-star="2">★</button><button data-star="3">★</button>
+        <button data-star="4">★</button><button data-star="5">★</button>
+      </div>
+      <textarea id="rate-note" placeholder="Anything worth remembering for next time? (optional)"></textarea>
+      <button id="rate-submit-btn" class="btn btn-primary">Save rating</button>
+    </section>
+
+    <section id="screen-done" class="screen center-screen hidden">
+      <h2>Saved — enjoy the movie 🍿</h2>
+      <p class="muted">Next time, use your couple code and we'll factor in what you two actually enjoyed.</p>
+    </section>
+
+    <p id="global-error" class="error hidden"></p>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/shared.js') }}"></script>
+<script src="{{ url_for('static', filename='js/swipe.js') }}"></script>
+<script src="{{ url_for('static', filename='js/session.js') }}"></script>
+{% endblock %}

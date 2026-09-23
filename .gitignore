@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.egg-info/
+.DS_Store
+_backup_preread_companion/

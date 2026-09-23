@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="page page-landing">
+  <div class="wrap">
+
+    <header class="hero">
+      <div class="brand">
+        <span class="brand-mark">🎬</span>
+        <span class="brand-name">Tonight</span>
+      </div>
+      <h1>Stop scrolling.<br>Stop negotiating.<br><span class="accent">Just watch something.</span></h1>
+      <p class="subtitle">Two people, two moods, one pick — matched from what's actually streaming in India right now.</p>
+      <button id="start-btn" class="btn btn-primary btn-lg">Start tonight's pick</button>
+    </header>
+
+    <section id="form-section" class="card form-card hidden">
+      <h2>What are you in the mood for?</h2>
+      <p class="muted">Answer for yourself — your partner won't see this until you both finish.</p>
+      <div id="form-mount"></div>
+    </section>
+
+    <section id="join-section" class="join-section">
+      <p class="muted">Already got a link or code from your partner?</p>
+      <form id="join-form" class="join-form">
+        <input id="join-input" type="text" placeholder="Paste the link or session code" autocomplete="off">
+        <button type="submit" class="btn btn-secondary">Join</button>
+      </form>
+      <p id="join-error" class="error hidden"></p>
+    </section>
+
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/shared.js') }}"></script>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
