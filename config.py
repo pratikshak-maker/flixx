@@ -17,7 +17,7 @@ RAPIDAPI_KEY = os.environ.get("RAPIDAPI_KEY", "").strip()
 SUPABASE_URL = os.environ.get("SUPABASE_URL", "").strip().rstrip("/")
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get("SUPABASE_SERVICE_ROLE_KEY", "").strip()
 
-PORT = int(os.environ.get("PORT", "5001"))
+PORT = int(os.environ.get("PORT") or "5001")
 FORCE_DEMO_MODE = _truthy(os.environ.get("DEMO_MODE"))
 
 HAS_CLAUDE = bool(ANTHROPIC_API_KEY) and not FORCE_DEMO_MODE
